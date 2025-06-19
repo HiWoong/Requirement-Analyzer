@@ -13,6 +13,9 @@
 
 ## 🖥️ 주요 화면
 
+### Dashboard
+![Dashboard 예시](./data/dashboard.png)
+
 ### RTM Table
 ![Table 예시](./data/rtm_table.png)
 
@@ -27,12 +30,12 @@
 
 | 단계                                       | 기능                                                                                                                                       | 주요 기술 / 설명                                                          |
 | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| **1. Upload**                            | **회의록 파일 업로드**<br>Streamlit을 통해 TXT / DOCX 파일 업로드 후 Azure Blob Storage에 저장                                                         | `Streamlit`, `azure-storage-blob`                                   |
-| **2. Requirement Extraction**            | **요구사항 추출**<br>업로드된 문서에서 텍스트 추출 후 `Azure OpenAI`를 이용해 초기 요구사항 목록 생성<br>→ 요구사항명, 설명, 위험 요인 등등                                               | `Azure OpenAI`, `docx` 등                    |
+| **1. Upload**                            | **회의록 파일 업로드**<br>Streamlit을 통해 TXT / DOCX 파일 업로드 후 Azure Blob Storage에 저장                                                         | `Streamlit`, `Azure Blob Storage`                                   |
+| **2. Requirement Extraction**            | **요구사항 추출**<br>업로드된 문서에서 텍스트 추출 후 `Azure OpenAI`를 이용해 초기 요구사항 목록 생성<br>→ 요구사항명, 설명, 위험 요인 등등                                               | `Azure OpenAI`                   |
 | **3. Embedding & Similarity Assessment** | **중복 / 충돌 / 유사도 판단**<br>요구사항 하나씩 순회하며 벡터화 (`embedding-model`) 후 Azure AI Search를 통해 유사도 검색<br>→ 각 요구사항에 상태(양호 / 중복 / 충돌) 및 score 부여 | `Azure OpenAI Embedding`, `Azure AI Search`                         |
-| **4. Excel Generation & Blob Upload**    | **RTM 엑셀 생성 및 업로드**<br>Pandas를 통해 RTM 데이터프레임 구성 → 엑셀로 저장<br>업로드된 원본 회의록과 함께 Blob Storage에 저장<br>+ 업로드 파일명 ↔ 생성 엑셀명 테이블 매핑                | `pandas`, `azure-storage-blob`, `Azure Table Storage` |
+| **4. Excel Generation & Blob Upload**    | **RTM 엑셀 생성 및 업로드**<br>Pandas를 통해 RTM 데이터프레임 구성 → 엑셀로 저장<br>업로드된 원본 회의록과 함께 Blob Storage에 저장<br>+ 업로드 파일명 ↔ 생성 엑셀명 테이블 매핑                | `pandas`, `Azure Blob Storage`, `Azure Table Storage` |
 | **5. Index Update & Dashboard**          | **벡터 인덱스 업데이트 및 대시보드 시각화**<br>새롭게 생성된 엑셀의 데이터도 Azure AI Search 인덱스에 반영<br>Streamlit + Plotly를 활용해 요구사항 품질 상태 시각화                         | `Azure AI Search`, `Streamlit`, `Plotly`, `Pandas`                  |
-| **6. RAG Chat**                          | **질의응답 (RAG 기반)**<br>사용자의 질문 → 임베딩 → Azure AI Search → 관련 문서 검색 → GPT-4o-mini가 문맥 기반 답변 제공                                               | `Azure AI Search`, `Embedding`, `RAG 방식`             |
+| **6. RAG Chat**                          | **질의응답 (RAG 기반)**<br>사용자의 질문 → 임베딩 → Azure AI Search → 관련 문서 검색 → GPT-4o-mini가 문맥 기반 답변 제공                                               | `Azure AI Search`, `Embedding`, `RAG`             |
 
 
 ## 🛠️ 기술 스택
@@ -41,7 +44,7 @@
 | --- | --- |
 | **Frontend** | Streamlit, Plotly, Markdown |
 | **Backend** | Python 3.11+, Pandas, Azure Table Storage |
-| **AI / NLP** | Azure OpenAI, Azure AI Search (vector) |
+| **AI / NLP** | Azure OpenAI, Azure AI Search |
 | **파일 저장** | Azure Blob Storage |
 | **배포** | Azure Web App Service |
 
