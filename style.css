@@ -1,0 +1,40 @@
+.ver{ 
+    color:#909090;
+    margin-top: auto;
+    text-align: right;
+    font-size: 0.9rem;
+}
+.download-button {
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    padding: 0.55em 1.3em;
+    border: 2px solid #1f77b4;
+    border-radius: 8px;
+    font-weight: 600;
+    color: #1f77b4;
+    background: #fff;
+    transition: all 0.3s ease;
+}
+.download-button:hover {
+    background-color: #1f77b4;
+    color: white;
+}
+.st-emotion-cache-zy6yx3 {
+    padding-top: 4rem !important;
+    padding-bottom: 0rem !important;
+}
+
+div[data-testid="stHorizontalBlock"] > div.stColumn:nth-child(3) {
+    display: flex;
+    flex-direction: column;
+    height: 88vh;          /* ↔ 필요시 조정 */
+    overflow-y: auto;      /* 컬럼 전체 스크롤 막기 */
+}
+
+.card {
+    background-color: #f0f2f6;
+    padding: 16px;
+    border-radius: 12px;
+    min-height: 120px;
+}
