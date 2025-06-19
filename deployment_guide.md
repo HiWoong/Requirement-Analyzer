@@ -31,7 +31,7 @@ az storage table create --name <your_table_name> --account-name <your_storage_ac
 - 배포 폴더를 새로 만든 후 실행
 ```shell
 phthon -m venv .venv
-source venv/bin/activate 실행   # Windows: venv\Scripts\activate
+.\.venv\Scripts\Activate.ps1
 ```
 - 필요 파일들 이동(app.py, rtm_pipeline.py, requirements.txt, data)
 - .deployment 생성
