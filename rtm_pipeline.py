@@ -70,7 +70,6 @@ def save_to_table(key: str, value: str):
         "Value": value
     }
     table_client.upsert_entity(entity)
-    print(f"[저장 완료] {key} → {value}")
 
 # 테이블 조회
 def get_value_by_key(key: str) -> str:
@@ -149,11 +148,7 @@ def upsert_rtm_rows(rtm_rows: list[dict], source_file: str):
             "title": source_file,
             "text_vector": get_embedding(content)  # 1536‑float 배열
         })
-    print("========================")
-    print(len(actions))
-    print("========================")
     result = search_client.merge_or_upload_documents(documents=actions)
-    print(result)
 
 # Azure OpenAI 임베딩 생성 함수
 def get_embedding(text: str) -> list:
@@ -287,7 +282,6 @@ def enrich_with_similarity(req_row: dict) -> dict:
     data = json.loads(response.choices[0].message.content.strip())
 
     status = "양호"
-    print(score)
     if score > 0.65:
         status = "중복"
     else:
@@ -295,7 +289,6 @@ def enrich_with_similarity(req_row: dict) -> dict:
             # 유사 문서 설명 추출
             chunk = hits[0].get("chunk", "")
             text2 = extract_field_from_chunk(chunk, field_name="설명")
-            print(text2)
             conflict_result = detect_conflict_gpt(req_row["설명"], text2)
             if conflict_result == "충돌":
                 status = "충돌"
