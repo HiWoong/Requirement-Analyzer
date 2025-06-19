@@ -30,7 +30,7 @@ def initialize_session_state():
         "most_relevant_note" not in st.session_state):
         st.session_state.rtm_df, st.session_state.blob_url, st.session_state.uploaded_filename, st.session_state.most_relevant_note = load_latest_rtm_excel()
     if "total_count" not in st.session_state:
-        st.session_state.total_count = count_blob(".txt")
+        st.session_state.total_count = count_blob(".txt") + count_blob(".docx")
     if "chat_history" not in st.session_state:
         st.session_state.chat_history = [{
             "role": "assistant",
@@ -156,7 +156,8 @@ with left:
     dates = [(today - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(6, -1, -1)]
     x = dates
     # 더미 데이터
-    y = [1, 0, 2, 4, 5, 3, count_recent_blob(".txt")[-1]]
+    today_blob = count_recent_blob(".txt")[-1] + count_recent_blob(".docx")[-1]
+    y = [1, 0, 2, 4, 5, 3, today_blob]
     fig = go.Figure(
         data=[
             go.Bar(
