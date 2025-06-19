@@ -92,8 +92,8 @@
 **서버 실행**은 배포 가이드(deployment_guide.md)를 참고해주세요.
 ```bash
 # 1. 의존성 설치
-python -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 
 # 2. 환경 변수 (.env) 설정
