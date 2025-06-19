@@ -15,7 +15,7 @@ st.set_page_config(page_title="RTM Dashboard", layout="wide")
 left, center, right = st.columns([1, 2, 1])
 
 # ───────────────────────────────
-# 1. 세션 변수 초기화
+# 1. 세션 변수 & CSS 초기화
 # ───────────────────────────────
 def initialize_session_state():
     if "uploaded_file_ready" not in st.session_state:
@@ -37,50 +37,17 @@ def initialize_session_state():
             "content": "궁금한 사항을 질문해주세요!"
         }]
 
+def local_css(file_name):
+    with open(file_name, "r", encoding="utf-8") as f:
+        css_content = f.read()
+        st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
+
 with st.spinner("로드 중입니다..."):
     initialize_session_state()
+    local_css("style.css")
 
 # ───────────────────────────────
-# 2. CSS 주입: 레이아웃
-# ───────────────────────────────
-st.markdown(
-    """
-    <style>
-    .ver{ color:#909090; margin-top: auto; text-align: right; font-size: 0.9rem; }
-    .download-button {
-        width: 100%;
-        text-align: center;
-        display: inline-block;
-        padding: 0.55em 1.3em;
-        border: 2px solid #1f77b4;
-        border-radius: 8px;
-        font-weight: 600;
-        color: #1f77b4;
-        background: #fff;
-        transition: all 0.3s ease;
-    }
-    .download-button:hover {
-        background-color: #1f77b4;
-        color: white;
-    }
-    .st-emotion-cache-zy6yx3 {
-        padding-top: 4rem !important;
-        padding-bottom: 0rem !important;
-    }
-    
-    div[data-testid="stHorizontalBlock"] > div.stColumn:nth-child(3) {
-        display: flex;
-        flex-direction: column;
-        height: 88vh;          /* ↔ 필요시 조정 */
-        overflow-y: auto;      /* 컬럼 전체 스크롤 막기 */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
-# ───────────────────────────────
-# 3. 다운로드 버튼 헬퍼
+# 2. 다운로드 버튼 헬퍼
 # ───────────────────────────────
 def download_button(label="Download RTM"):
     if st.session_state.blob_url == "":
@@ -117,7 +84,7 @@ def download_button(label="Download RTM"):
         )
 
 # ───────────────────────────────
-# 5‑A. 좌측: 문서 관리
+# 3‑A. 좌측: 문서 관리
 # ───────────────────────────────
 with left:
     # 제목 + 버튼 UI
@@ -165,16 +132,9 @@ with left:
 
     col1, col2 = st.columns(2)
 
-    CARD_STYLE = """
-        background-color: #f0f2f6;
-        padding: 16px;
-        border-radius: 12px;
-        min-height: 120px;
-    """
-
     with col1:
         st.markdown(f"""
-            <div style="{CARD_STYLE}">
+            <div class="card">
                 <h6 style="margin: 0;">총 문서 수</h6>
                 <p style="font-size: 24px; margin: 0;">{st.session_state.total_count}</p>
             </div>
@@ -182,7 +142,7 @@ with left:
 
     with col2:
         st.markdown(f"""
-            <div style="{CARD_STYLE}">
+            <div class="card">
                 <h6 style="margin: 0;">가장 관련있는 문서</h6>
                 <p style="font-size: 16px; margin: 0; word-break: break-word;">
                     {st.session_state.most_relevant_note}
@@ -225,7 +185,7 @@ with left:
     st.plotly_chart(fig, use_container_width=True)
 
 # ───────────────────────────────
-# 5‑B. 중앙: 차트 + 표
+# 3‑B. 중앙: 차트 + 표
 # ───────────────────────────────
 with center:
     col1, col2 = st.columns([6, 2])
@@ -315,7 +275,7 @@ with center:
     )
 
 # ───────────────────────────────
-# 5‑C. 우측: AI Chat
+# 3‑C. 우측: AI Chat
 # ───────────────────────────────
 with right:
     download_button()
