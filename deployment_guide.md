@@ -30,7 +30,7 @@ az storage table create --name <your_table_name> --account-name <your_storage_ac
 ### 7. 웹 앱 생성
 - 배포 폴더를 새로 만든 후 실행
 ```shell
-phthon -m venv .venv
+python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 ```
 - 필요 파일들 이동(app.py, rtm_pipeline.py, requirements.txt, data)
