@@ -1,7 +1,3 @@
-# TODO: 발표 장표 만들기
-# TODO: README 파일 작성(환경 변수(예: Azure 키), 설치 방법, 실행 가이드 등)
-# TODO: 코드 제출 준비(README, 환경변수 예시(.env.sample), 배포 가이드, 사용 데이터 인덱스)
-
 import streamlit as st
 import plotly.graph_objs as go
 import textwrap
